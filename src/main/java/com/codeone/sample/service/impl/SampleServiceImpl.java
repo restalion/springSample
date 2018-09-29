@@ -1,4 +1,6 @@
-package com.codeone.sample.service;
+package com.codeone.sample.service.impl;
+
+import com.codeone.sample.service.SampleService;
 
 public class SampleServiceImpl implements SampleService {
 
