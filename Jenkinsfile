@@ -5,6 +5,11 @@ pipeline {
     	stage ('Build') {
     		steps {
     			echo 'Building...'
+    			tools {
+    			    maven 'Maven 3.5.4'
+    			    jdk 'jdk8'
+    			}
+
     		}
     	}
     	stage ('Test') {
