@@ -19,22 +19,31 @@ pipeline {
     
     	stage ('Build') {
             steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true install' 
-            }
-            post {
-                success {
-                    junit 'target/surefire-reports/**/*.xml' 
-                }
+                sh 'mvn -Dmaven.test.skip=true compile' 
             }
     	}
     	stage ('Test') {
     		steps {
     			echo 'Testing...'
+    			sh 'mvn test'
     		}
+            post {
+                success {
+                    junit 'target/surefire-reports/**/*.xml' 
+                }
+            }
+    		
     	}
-    	stage ('Deploy') {
+    	stage ('Deploy local') {
     		steps {
     			echo 'Deploying...'
+    			sh 'mvn install'
+    		}
+    	}
+    	stage ('Generate docker image') {
+    		steps {
+    			echo 'Generating Docker Image...'
+    			sh 'docker image build'
     		}
     	}
     }
